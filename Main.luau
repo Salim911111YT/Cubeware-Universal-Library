@@ -15,7 +15,7 @@ local PerformanceTab = Window:MakeTab("Performance")
 
 CombatTab:AddSlider({
 	Name = "Hitbox Expander",
-	Max = 50;
+	Max = 80;
 	Default = 5;
 	Callback = function(Value)
 		while task.wait() do
