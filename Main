@@ -1,0 +1,65 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/magbux/BorealisUiLib/refs/heads/main/Library.Lua"))()
+local plr = game:GetService("Players").LocalPlayer
+
+-- Create A Window (Put The Tab Name Behind The Section Name)
+local Window = Library.new("CubeWare")
+
+-- Create A Tab
+local CombatTab = Window:MakeTab("Combat");
+local TpTab = Window:MakeTab("Teleports")
+
+CombatTab:AddSlider({
+	Name = "Hitbox Expander",
+	Max = 50;
+	Default = 5;
+	Callback = function(Value)
+		while task.wait() do
+			for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+			if v ~= plr then
+				local success, message = pcall(function()
+					v.Character.PrimaryPart.Size = Vector3.new(Value, Value, Value)
+					v.Character.PrimaryPart.CanCollide = false;
+					v.Character.PrimaryPart.Transparency = 0.6;
+					v.Character.PrimaryPart.Color = Color3.new(1, 0, 0)
+
+					for _, y in pairs(v.Character:GetChildren()) do
+						if y then
+							if y:IsA("BasePart") then
+								if v.Character:FindFirstAncestorOfClass("Humanoid").Health <= 0 then
+									y.CanCollide = false
+								end
+							end
+						end
+					end
+				end)
+			end
+		end
+		end
+	end
+})
+
+CombatTab:AddToggle({
+	Name = "Anti Void";
+	Callback = function(Value)
+		if Value == true then
+			local s = Instance.new("Part", workspace);
+
+			s.Name = "AntiVoid";
+			s.CanCollide = true;
+			s.CFrame = plr.Character.PrimaryPart.CFrame - Vector3.new(0, 5, 0)
+			s.Transparency = 0.6;
+			s.Color = Color3.new(1, 1, 1);
+		else
+			if workspace:FindFirstChild("AntiVoid") then
+				workspace:WaitForChild("AntiVoid"):Destroy()
+			end
+		end
+	end
+})
+
+TpTab:AddButton({
+	Name = "Invincible (Sends u to blackbox)";
+	Callback = function()
+		plr.Character.PrimaryPart.CFrame = CFrame.new(0, 10^15, 0)
+	end
+})
