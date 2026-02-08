@@ -50,7 +50,8 @@ CombatTab:AddToggle({
 			s.CFrame = plr.Character.PrimaryPart.CFrame - Vector3.new(0, 5, 0)
 			s.Transparency = 0.6;
 			s.Color = Color3.new(1, 1, 1);
-		else
+			s.Anchored = true;
+		elseif Value == false then
 			if workspace:FindFirstChild("AntiVoid") then
 				workspace:WaitForChild("AntiVoid"):Destroy()
 			end
@@ -69,9 +70,13 @@ PerformanceTab:AddButton({
 	Name = "No Textures",
 	Callback = function()
 		pcall(function()
-			for _, v in pairs(workspace:GetDescendants()) do
+			for _, v in pairs(game:GetDescendants()) do
 				if v:IsA("BasePart") then
-					v.Material = Enum.Material["Plastic"]
+					v.Material = Enum.Material["SmoothPlastic"]
+
+					if v:FindFirstChildOfClass("SpecialMesh") then
+						v.TextureId = "rbxassetid://0"
+					end
 				end
 			end
 		end)
