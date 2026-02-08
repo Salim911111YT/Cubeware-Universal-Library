@@ -18,7 +18,7 @@ CombatTab:AddSlider({
 	Max = 80;
 	Default = 5;
 	Callback = function(Value)
-		while task.wait() do
+		while task.wait(0.2) do
 			for _, v in pairs(game:GetService("Players"):GetPlayers()) do
 			if v ~= plr then
 				local success, message = pcall(function()
