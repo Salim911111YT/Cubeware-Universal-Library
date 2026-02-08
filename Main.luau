@@ -78,7 +78,7 @@ CombatTab:AddToggle({
 						h.Name = "CubeWareHighlight"
 
 						if #game:GetService("Teams"):GetChildren() >= 2 then
-							print("hello)
+							print("hello")
 						end
 					end
 				end
@@ -95,13 +95,13 @@ CombatTab:AddToggle({
 						h.Name = "CubeWareHighlight"
 
 						if #game:GetService("Teams"):GetChildren() >= 2 then
-							print("hello)
+							print("hello")
 						end
 					end
-				end
+				end)
 			end)
 		elseif Value == false then
-			for_ , v in pairs(game:GetService("Players"):GetPlayers()) do
+			for _ , v in pairs(game:GetService("Players"):GetPlayers()) do
 				if v ~= plr then
 					if v.Character:FindFirstChild("CubeWareHighlight") then
 						v.Character:FindFirstChild("CubeWareHighlight"):Destroy()
@@ -113,7 +113,7 @@ CombatTab:AddToggle({
 				connections["ESP"]:Disconnect()
 				connections["ESP"] = nil
 			end
-		end
+		end	
 	end
 })
 
@@ -153,4 +153,3 @@ PerformanceTab:AddButton({
 		end)
 	end
 });
-
