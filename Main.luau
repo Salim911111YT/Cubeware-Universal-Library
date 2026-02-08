@@ -52,7 +52,7 @@ CombatTab:AddSlider({
 			pcall(function()
 				if plr.Character:FindFirstChildOfClass("Humanoid") then
 					plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed = tonumber(Value)
-				end)
+				end
 			end)
 		end
 	end
