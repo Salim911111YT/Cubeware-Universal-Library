@@ -22,10 +22,10 @@ CombatTab:AddSlider({
 			for _, v in pairs(game:GetService("Players"):GetPlayers()) do
 			if v ~= plr then
 				local success, message = pcall(function()
-					v.Character.PrimaryPart.Size = Vector3.new(Value, Value, Value)
-					v.Character.PrimaryPart.CanCollide = false;
-					v.Character.PrimaryPart.Transparency = 0.6;
-					v.Character.PrimaryPart.Color = Color3.new(1, 0, 0)
+					v.Character.HumanoidRootPart.Size = Vector3.new(Value, Value, Value)
+					v.Character.HumanoidRootPart.CanCollide = false;
+					v.Character.HumanoidRootPart.Transparency = 0.6;
+					v.Character.HumanoidRootPart.Color = Color3.new(1, 0, 0)
 
 					for _, y in pairs(v.Character:GetChildren()) do
 						if y then
