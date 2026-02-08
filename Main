@@ -6,7 +6,8 @@ local Window = Library.new("CubeWare")
 
 -- Create A Tab
 local CombatTab = Window:MakeTab("Combat");
-local TpTab = Window:MakeTab("Teleports")
+local TpTab = Window:MakeTab("Teleports");
+local PerformanceTab = Window:MakeTab("Performance")
 
 CombatTab:AddSlider({
 	Name = "Hitbox Expander",
@@ -63,3 +64,16 @@ TpTab:AddButton({
 		plr.Character.PrimaryPart.CFrame = CFrame.new(0, 10^15, 0)
 	end
 })
+
+PerformanceTab:AddButton({
+	Name = "No Textures"
+	Callback = function()
+		pcall(function()
+			for _, v in pairs(workspace:GetDescendants()) do
+				if v:IsA("BasePart") then
+					v.Material = Enum.Material["Plastic"]
+				end
+			end
+		end)
+	end
+});
