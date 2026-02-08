@@ -43,6 +43,21 @@ CombatTab:AddSlider({
 	end
 })
 
+CombatTab:AddSlider({
+	Name = "Speed Increaser",
+	Max = 60;
+	Default = 16;
+	Callback = function(Value)
+		while task.wait() do
+			pcall(function()
+				if plr.Character:FindFirstChildOfClass("Humanoid") then
+					plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed = tonumber(Value)
+				end)
+			end)
+		end
+	end
+})
+
 CombatTab:AddToggle({
 	Name = "Anti Void";
 	Callback = function(Value)
