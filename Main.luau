@@ -156,6 +156,13 @@ TpTab:AddButton({
 	end
 })
 
+TpTab:AddButton({
+	Name = "Home (Sends u to the origin of the game).";
+	Callback = function()
+		plr.Character.PrimaryPart.CFrame = CFrame.new(0, 0, 0)
+	end
+})
+
 PerformanceTab:AddButton({
 	Name = "No Textures",
 	Callback = function()
