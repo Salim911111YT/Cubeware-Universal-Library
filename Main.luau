@@ -22,16 +22,33 @@ CombatTab:AddSlider({
 			for _, v in pairs(game:GetService("Players"):GetPlayers()) do
 			if v ~= plr then
 				local success, message = pcall(function()
-					v.Character.HumanoidRootPart.Size = Vector3.new(Value, Value, Value)
-					v.Character.HumanoidRootPart.CanCollide = false;
-					v.Character.HumanoidRootPart.Transparency = 0.6;
-					v.Character.HumanoidRootPart.Color = Color3.new(1, 0, 0)
+					if Value > 0 then
+						v.Character.HumanoidRootPart.Size = Vector3.new(Value, Value, Value)
+						v.Character.HumanoidRootPart.CanCollide = false;
+						v.Character.HumanoidRootPart.Transparency = 0.6;
+						v.Character.HumanoidRootPart.Color = Color3.new(1, 0, 0)
 
-					for _, y in pairs(v.Character:GetChildren()) do
-						if y then
-							if y:IsA("BasePart") then
-								if v.Character:FindFirstAncestorOfClass("Humanoid").Health <= 0 then
-									y.CanCollide = false
+						for _, y in pairs(v.Character:GetChildren()) do
+							if y then
+								if y:IsA("BasePart") then
+									if v.Character:FindFirstAncestorOfClass("Humanoid").Health <= 0 then
+										y.CanCollide = false
+									end
+								end
+							end
+						end
+					elseif Value <= 0 then
+						v.Character.HumanoidRootPart.Size = Vector3.new(2, 4, 2)
+						v.Character.HumanoidRootPart.CanCollide = false;
+						v.Character.HumanoidRootPart.Transparency = 0.6;
+						v.Character.HumanoidRootPart.Color = Color3.new(1, 0, 0)
+
+						for _, y in pairs(v.Character:GetChildren()) do
+							if y then
+								if y:IsA("BasePart") then
+									if v.Character:FindFirstAncestorOfClass("Humanoid").Health <= 0 then
+										y.CanCollide = false
+									end
 								end
 							end
 						end
