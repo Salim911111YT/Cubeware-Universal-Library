@@ -82,3 +82,17 @@ PerformanceTab:AddButton({
 		end)
 	end
 });
+
+PerformanceTab:AddButton({
+	Name = "No Meshes",
+	Callback = function()
+		pcall(function()
+			for _, v in pairs(game:GetDescendants()) do
+				if v:IsA("SpecialMesh") then
+					v:Destroy()
+				end
+			end
+		end)
+	end
+});
+
