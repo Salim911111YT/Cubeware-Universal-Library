@@ -1,6 +1,10 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/magbux/BorealisUiLib/refs/heads/main/Library.Lua"))()
 local plr = game:GetService("Players").LocalPlayer
 
+local connections = {
+	["ESP"] = nil
+}
+
 -- Create A Window (Put The Tab Name Behind The Section Name)
 local Window = Library.new("CubeWare")
 
@@ -54,6 +58,60 @@ CombatTab:AddToggle({
 		elseif Value == false then
 			if workspace:FindFirstChild("AntiVoid") then
 				workspace:WaitForChild("AntiVoid"):Destroy()
+			end
+		end
+	end
+})
+
+CombatTab:AddToggle({
+	Name = "ESP (See All)";
+	Callback = function(Value)
+		if Value == true then
+			for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+				if v ~= plr then
+					if not v.Character:FindFirstChildOfClass("Highlight") then
+						local h = Instance.new("Highlight", v.Character);
+
+						h.Adoornee = v.Character.PrimaryPart;
+						h.FillTransparency = 1;
+						h.OutlineTransparency = 0;
+						h.Name = "CubeWareHighlight"
+
+						if #game:GetService("Teams"):GetChildren() >= 2 then
+							print("hello)
+						end
+					end
+				end
+			end
+
+			connections["ESP"] = game:GetService("Players").PlayerAdded:Connect(function(plr)
+				plr.CharacterAdded:Connect(function()
+					if not plr.Character:FindFirstChildOfClass("Highlight") then
+						local h = Instance.new("Highlight", plr.Character);
+
+						h.Adoornee = v.Character.PrimaryPart;
+						h.FillTransparency = 1;
+						h.OutlineTransparency = 0;
+						h.Name = "CubeWareHighlight"
+
+						if #game:GetService("Teams"):GetChildren() >= 2 then
+							print("hello)
+						end
+					end
+				end
+			end)
+		elseif Value == false then
+			for_ , v in pairs(game:GetService("Players"):GetPlayers()) do
+				if v ~= plr then
+					if v.Character:FindFirstChild("CubeWareHighlight") then
+						v.Character:FindFirstChild("CubeWareHighlight"):Destroy()
+					end
+				end
+			end
+
+			if connections["ESP"] then
+				connections["ESP"]:Disconnect()
+				connections["ESP"] = nil
 			end
 		end
 	end
