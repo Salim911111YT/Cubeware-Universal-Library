@@ -50,7 +50,11 @@ CombatTab:AddSlider({
 										y.CanCollide = false
 									end
 								end
+
+								task.wait(0.025)
 							end
+
+							task.wait(0.025)
 						end
 					end
 				end)
@@ -65,7 +69,7 @@ CombatTab:AddSlider({
 	Max = 60;
 	Default = 16;
 	Callback = function(Value)
-		while task.wait() do
+		while task.wait(0.05) do
 			pcall(function()
 				if plr.Character:FindFirstChildOfClass("Humanoid") then
 					plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed = tonumber(Value)
