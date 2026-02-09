@@ -20,7 +20,8 @@ CombatTab:AddLabel("I noticed ESP has some troubles, fixing it next day :D")
 CombatTab:AddSlider({
 	Name = "Hitbox Expander",
 	Max = 80;
-	Default = tonumber(plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed);
+	Default = 3;
+	Mix = 1;
 	Callback = function(Value)
 		connections["Hitbox"][2] = tonumber(Value)
 
@@ -77,7 +78,7 @@ CombatTab:AddSlider({
 CombatTab:AddSlider({
 	Name = "Speed Increaser",
 	Max = 60;
-	Default = 16;
+	Default = tonumber(plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed);
 	Callback = function(Value)
 		connections["Speed"][2] = tonumber(Value)
 
