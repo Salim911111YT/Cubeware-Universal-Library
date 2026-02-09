@@ -16,7 +16,7 @@ local PerformanceTab = Window:MakeTab("Performance")
 CombatTab:AddSlider({
 	Name = "Hitbox Expander",
 	Max = 80;
-	Default = 5;
+	Default = tonumber(plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed);
 	Callback = function(Value)
 		while task.wait(0.2) do
 			for _, v in pairs(game:GetService("Players"):GetPlayers()) do
