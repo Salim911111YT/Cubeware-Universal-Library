@@ -11,6 +11,8 @@ local connections = {
 -- Create A Window (Put The Tab Name Behind The Section Name)
 local Window = Library.new("CubeWare")
 
+Window:AddLabel("I noticed ESP has some troubles, fixing it next day :D - Cubeware Owner")
+
 -- Create A Tab
 local CombatTab = Window:MakeTab("Combat");
 local TpTab = Window:MakeTab("Teleports");
