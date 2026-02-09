@@ -2,7 +2,8 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/magbu
 local plr = game:GetService("Players").LocalPlayer
 
 local connections = {
-	["ESP"] = nil
+	["ESP"] = nil;
+	["Hitbox"] = {false, 16};
 }
 
 -- Create A Window (Put The Tab Name Behind The Section Name)
@@ -18,20 +19,26 @@ CombatTab:AddSlider({
 	Max = 80;
 	Default = tonumber(plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed);
 	Callback = function(Value)
-		while task.wait(0.2) do
-			for _, v in pairs(game:GetService("Players"):GetPlayers()) do
-			if v ~= plr then
-				local success, message = pcall(function()
-					if Value > 0 then
-						v.Character.HumanoidRootPart.Size = Vector3.new(Value, Value, Value)
-						v.Character.HumanoidRootPart.CanCollide = false;
-						v.Character.HumanoidRootPart.Transparency = 0.6;
-						v.Character.HumanoidRootPart.Color = Color3.new(1, 0, 0)
+		connections["Hitbox"][2] = tonumber(Value)
 
-						for _, y in pairs(v.Character:GetChildren()) do
-							if y then
-								if y:IsA("BasePart") then
-									if v.Character:FindFirstAncestorOfClass("Humanoid").Health <= 0 then
+		if connections["Hitbox"][1] == true then continue end
+		
+		while task.wait(0.2) do
+			connections["Hitbox"][1] = true
+
+			for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+				if v ~= plr then
+					local success, message = pcall(function()
+						if Value > 0 then
+							v.Character.HumanoidRootPart.Size = Vector3.new(tonumber(connections["Hitbox"][2]), tonumber(connections["Hitbox"][2]), tonumber(connections["Hitbox"][2]))
+							v.Character.HumanoidRootPart.CanCollide = false;
+							v.Character.HumanoidRootPart.Transparency = 0.6;
+							v.Character.HumanoidRootPart.Color = Color3.new(1, 0, 0)
+
+							for _, y in pairs(v.Character:GetChildren()) do
+								if y then
+									if y:IsA("BasePart") then
+										if v.Character:FindFirstAncestorOfClass("Humanoid").Health <= 0 then
 										y.CanCollide = false
 									end
 								end
