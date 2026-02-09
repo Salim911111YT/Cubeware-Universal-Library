@@ -4,6 +4,7 @@ local plr = game:GetService("Players").LocalPlayer
 local connections = {
 	["ESP"] = nil;
 	["Hitbox"] = {false, 16};
+	["Speed"] = {false, 16}
 }
 
 -- Create A Window (Put The Tab Name Behind The Section Name)
@@ -76,10 +77,16 @@ CombatTab:AddSlider({
 	Max = 60;
 	Default = 16;
 	Callback = function(Value)
+		connections["Speed"][2] = tonumber(Value)
+
+		if connections["Speed"][1] == true then return end
+
 		while task.wait(0.05) do
+			connections["Speed"][1] = true
+
 			pcall(function()
 				if plr.Character:FindFirstChildOfClass("Humanoid") then
-					plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed = tonumber(Value)
+					plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed = tonumber(connections["Speed"][2])
 				end
 			end)
 		end
