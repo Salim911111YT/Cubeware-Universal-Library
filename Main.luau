@@ -225,11 +225,9 @@ PerformanceTab:AddSlider({
 	Max = 5;
 	Default = 0;
 	Callback = function(Value)
-		while task.wait(0.05) do
-			pcall(function()
-				 game:GetService("Lighting").Brightness = Value;
-				 game:GetService("Lighting").ExposureCompensation = Value 
-			end)
-		end
+		pcall(function()
+			 game:GetService("Lighting").Brightness = Value;
+			 game:GetService("Lighting").ExposureCompensation = Value 
+		end)
 	end
 })
