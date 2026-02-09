@@ -23,7 +23,7 @@ CombatTab:AddSlider({
 	Callback = function(Value)
 		connections["Hitbox"][2] = tonumber(Value)
 
-		if connections["Hitbox"][1] == true then continue end
+		if connections["Hitbox"][1] == true then return end
 		
 		while task.wait(0.2) do
 			connections["Hitbox"][1] = true
