@@ -129,6 +129,7 @@ CombatTab:AddToggle({
 			s.CFrame = plr.Character.PrimaryPart.CFrame - Vector3.new(0, 5, 0)
 			s.Transparency = 0.6;
 			s.Color = Color3.new(1, 1, 1);
+			s.Size = Vector3.new(2048, 1, 2048)
 			s.Anchored = true;
 		elseif Value == false then
 			if workspace:FindFirstChild("AntiVoid") then
