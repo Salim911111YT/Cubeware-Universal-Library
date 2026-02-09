@@ -4,7 +4,8 @@ local plr = game:GetService("Players").LocalPlayer
 local connections = {
 	["ESP"] = nil;
 	["Hitbox"] = {false, 16};
-	["Speed"] = {false, 16}
+	["Speed"] = {false, 16};
+	["JumpHeight"] = {false, 7.2}
 }
 
 -- Create A Window (Put The Tab Name Behind The Section Name)
@@ -98,10 +99,17 @@ CombatTab:AddSlider({
 	Max = 20;
 	Default = 7.2;
 	Callback = function(Value)
+		connections["JumpHeight"][2] = tonumber(Value)
+
+		if connections["JumpHeight"][1] == true then return end
+
 		while task.wait(0.05) do
+			connections["JumpHeight"][1] = true
+
 			pcall(function()
 				if plr.Character:FindFirstChildOfClass("Humanoid") then
-					plr.Character:FindFirstChildOfClass("Humanoid").JumpHeight = tonumber(Value)
+					plr.Character:FindFirstChildOfClass("Humanoid").JumpHeight = tonumber(connections["JumpHeight"][2])
+					plr.Character:FindFirstChildOfClass("Humanoid").UseJumpHeight = true
 				end
 			end)
 		end
