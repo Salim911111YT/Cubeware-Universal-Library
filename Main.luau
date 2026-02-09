@@ -79,6 +79,21 @@ CombatTab:AddSlider({
 	end
 })
 
+CombatTab:AddSlider({
+	Name = "Jump Height Increaser",
+	Max = 20;
+	Default = 7.2;
+	Callback = function(Value)
+		while task.wait(0.05) do
+			pcall(function()
+				if plr.Character:FindFirstChildOfClass("Humanoid") then
+					plr.Character:FindFirstChildOfClass("Humanoid").JumpHeight = tonumber(Value)
+				end
+			end)
+		end
+	end
+})
+
 CombatTab:AddToggle({
 	Name = "Anti Void";
 	Callback = function(Value)
@@ -177,6 +192,14 @@ PerformanceTab:AddButton({
 
 					if v:FindFirstChildOfClass("SpecialMesh") then
 						v.TextureId = "rbxassetid://0"
+					end
+
+					if v:FindFirstChildOfClass("Decal") or v:FindFirstChildOfClass("Texture") then
+						for _, y in pairs(v:GetChildren()) do
+							if y:IsA("Decal") or y:IsA("Texture") then
+								y:Destroy()
+							end	
+						end
 					end
 				end
 			end
