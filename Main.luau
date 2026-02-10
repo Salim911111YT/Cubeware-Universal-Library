@@ -2,7 +2,7 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/magbu
 local plr = game:GetService("Players").LocalPlayer
 
 local connections = {
-	["ESP"] = nil;
+	["ESP"] = {nil, {};
 	["Hitbox"] = {false, 16};
 	["Speed"] = {false, 16};
 	["JumpHeight"] = {false, 7.2}
@@ -142,6 +142,9 @@ CombatTab:AddToggle({
 	Name = "ESP (See All)";
 	Callback = function(Value)
 		if Value == true then
+			local s = nil
+			local s2 = nil
+
 			for i = 1, #game:GetService("Players"):GetPlayers() do
 				local t_plr = game:GetService("Players"):GetPlayers()[tonumber(i)]
 
@@ -152,11 +155,22 @@ CombatTab:AddToggle({
 						h.Name = "CubewareHighlight";
 						h.Adoornee = t_plr.Character.PrimaryPart
 					end
+
+					s = t_plr.CharacterAdded:Connect(function()
+						repeat task.wait() until t_plr.Character ~= nil
+
+						if not t_plr.Character:FindFirstChild("CubewareHighlight") then
+							local h = Instance.new("Highlight", t_plr.Character);
+
+							h.Name = "CubewareHighlight";
+							h.Adoornee = t_plr.Character.PrimaryPart
+						end
+					end)
 				end
 			end
 
-			connections["ESP"] = game:GetService("Players").PlayerAdded:Connect(function(plr)
-				plr.CharacterAdded:Connect(function()
+			s2 = game:GetService("Players").PlayerAdded:Connect(function(plr)
+				s = plr.CharacterAdded:Connect(function()
 					if not plr.Character:FindFirstChildOfClass("Highlight") then
 						local h = Instance.new("Highlight", plr.Character);
 
@@ -171,6 +185,9 @@ CombatTab:AddToggle({
 					end
 				end)
 			end)
+
+			table.insert(connections["ESP"][2], s)
+			table.insert(connections["ESP"][2], s2)
 		elseif Value == false then
 			for i = 1, #game:GetService("Players"):GetPlayers() do
 				local t_plr = game:GetService("Players"):GetPlayers()[tonumber(i)]
@@ -182,10 +199,16 @@ CombatTab:AddToggle({
 				end
 			end
 
-			if connections["ESP"] then
-				connections["ESP"]:Disconnect()
-				connections["ESP"] = nil
-			end
+			pcall(function()
+				for _, v in pairs(connections["ESP"][2]) do
+					if v then
+						v:Disconnect()
+						table.remove(connections["ESP"][2], table.find(connections["ESP"][2], s))
+					end
+				end
+
+				connections["ESP"] = {nil, {}}
+			end)
 		end	
 	end
 })
