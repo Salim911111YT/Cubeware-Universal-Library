@@ -110,7 +110,7 @@ CombatTab:AddSlider({
 			pcall(function()
 				if plr.Character:FindFirstChildOfClass("Humanoid") then
 					plr.Character:FindFirstChildOfClass("Humanoid").JumpHeight = tonumber(connections["JumpHeight"][2])
-					plr.Character:FindFirstChildOfClass("Humanoid").UseJumpHeight = true
+					plr.Character:FindFirstChildOfClass("Humanoid").UseJumpPower = false
 				end
 			end)
 		end
