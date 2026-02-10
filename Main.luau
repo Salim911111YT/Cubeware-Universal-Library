@@ -16,7 +16,6 @@ local CombatTab = Window:MakeTab("Combat");
 local TpTab = Window:MakeTab("Teleports");
 local PerformanceTab = Window:MakeTab("Performance")
 
-CombatTab:AddLabel("I noticed ESP has some troubles, fixing it next day :D")
 CombatTab:AddSlider({
 	Name = "Hitbox Expander",
 	Max = 80;
@@ -211,6 +210,8 @@ PerformanceTab:AddButton({
 		pcall(function()
 			for _, v in pairs(game:GetDescendants()) do
 				if v:IsA("BasePart") then
+					if v.Material == Enum.Material["SmoothPlastic"] then continue end
+
 					v.Material = Enum.Material["SmoothPlastic"]
 
 					if v:FindFirstChildOfClass("SpecialMesh") then
