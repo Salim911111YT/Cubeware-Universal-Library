@@ -143,19 +143,15 @@ CombatTab:AddToggle({
 	Name = "ESP (See All)";
 	Callback = function(Value)
 		if Value == true then
-			for _, v in pairs(game:GetService("Players"):GetPlayers()) do
-				if v ~= plr then
-					if not v.Character:FindFirstChildOfClass("Highlight") then
-						local h = Instance.new("Highlight", v.Character);
+			for i = 1, #game:GetService("Players"):GetPlayers() do
+				local t_plr = game:GetService("Players"):GetPlayers[tonumber(i)]
 
-						h.Adoornee = v.Character.PrimaryPart;
-						h.FillTransparency = 1;
-						h.OutlineTransparency = 0;
-						h.Name = "CubeWareHighlight"
+				if t_plr ~= plr then
+					if not t_plr.Character:FindFirstChild("CubewareHighlight") then
+						local h = Instance.new("Highlight", t_plr.Character);
 
-						if #game:GetService("Teams"):GetChildren() >= 2 then
-							print("hello")
-						end
+						h.Name = "CubewareHighlight";
+						h.Adoornee = t_plr.Character.PrimaryPart
 					end
 				end
 			end
@@ -177,10 +173,12 @@ CombatTab:AddToggle({
 				end)
 			end)
 		elseif Value == false then
-			for _ , v in pairs(game:GetService("Players"):GetPlayers()) do
-				if v ~= plr then
-					if v.Character:FindFirstChild("CubeWareHighlight") then
-						v.Character:FindFirstChild("CubeWareHighlight"):Destroy()
+			for i = 1, #game:GetService("Players"):GetPlayers() do
+				local t_plr = game:GetService("Players"):GetPlayers[tonumber(i)]
+
+				if t_plr ~= plr then
+					if t_plr.Character:FindFirstChild("CubewareHighlight") then
+						t_plr.Character:WaitForChild("CubewareHighlight"):Destroy()
 					end
 				end
 			end
