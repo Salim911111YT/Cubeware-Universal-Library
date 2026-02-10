@@ -173,7 +173,7 @@ CombatTab:AddToggle({
 			end)
 		elseif Value == false then
 			for i = 1, #game:GetService("Players"):GetPlayers() do
-				local t_plr = game:GetService("Players"):GetPlayers[tonumber(i)]
+				local t_plr = game:GetService("Players"):GetPlayers()[tonumber(i)]
 
 				if t_plr ~= plr then
 					if t_plr.Character:FindFirstChild("CubewareHighlight") then
