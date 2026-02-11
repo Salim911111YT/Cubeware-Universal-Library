@@ -131,6 +131,12 @@ CombatTab:AddToggle({
 			s.Color = Color3.new(1, 1, 1);
 			s.Size = Vector3.new(2048, 1, 2048)
 			s.Anchored = true;
+
+			s.Touched:Connect(function(hit)
+				if hit:IsDescendantOf(plr.Character) then
+					plr.Character.HumanoidRootPart.AssemblyLinearVelocity = Vector3.new(0, 150, 0)
+				end
+			end)
 		elseif Value == false then
 			if workspace:FindFirstChild("AntiVoid") then
 				workspace:WaitForChild("AntiVoid"):Destroy()
