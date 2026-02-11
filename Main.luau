@@ -146,20 +146,24 @@ CombatTab:AddToggle({
 
 		
 				if connections["SBP"] == true then
-					repeat
-				 		task.wait(0.05)
+			  pcall(function()
+				repeat
+				 	task.wait(0.05)
 
-						 for _, v in pairs(game:GetService("Players"):GetPlayers()) do
-							 if v.Character ~= nil and v ~= plr then
+					for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+						if v.Team ~= plr.Team then
+							if v.Character ~= nil and v ~= plr then
 								 if v.Character:FindFirstChild("Head") then
-						 			 if (v.Character.Head.Position - plr.Character.HumanoidRootPart.Position).Magnitude <= 16 and v.Character:FindFirstChildOfClass("Humanoid").Health > 0 then
-										 plr.Character.HumanoidRootPart.Position = v.Character.Head.Position + v.Character.Head.CFrame.LookVector * -3
-									 end
+						 				 if (v.Character.Head.Position - plr.Character.HumanoidRootPart.Position).Magnitude <= 16 and v.Character:FindFirstChildOfClass("Humanoid").Health > 0 then
+										plr.Character.HumanoidRootPart.Position = v.Character.Head.Position + v.Character.Head.CFrame.LookVector * -3
+									end
 						 		end
 					 		end
-				 		end
-					until connections["SBP"] == false
-				end
+						end
+				 	end
+			   until connections["SBP"] == false
+			end)
+		end
 	end
 })
 
@@ -178,7 +182,7 @@ CombatTab:AddToggle({
 						local h = Instance.new("Highlight", t_plr.Character);
 
 						h.Name = "CubewareHighlight";
-						h.Adoornee = t_plr.Character.PrimaryPart
+						h.Adornee = t_plr.Character.PrimaryPart
 					end
 
 					s = t_plr.CharacterAdded:Connect(function()
@@ -188,7 +192,7 @@ CombatTab:AddToggle({
 							local h = Instance.new("Highlight", t_plr.Character);
 
 							h.Name = "CubewareHighlight";
-							h.Adoornee = t_plr.Character.PrimaryPart
+							h.Adornee = t_plr.Character.PrimaryPart
 						end
 					end)
 				end
@@ -203,10 +207,6 @@ CombatTab:AddToggle({
 						h.FillTransparency = 1;
 						h.OutlineTransparency = 0;
 						h.Name = "CubeWareHighlight"
-
-						if #game:GetService("Teams"):GetChildren() >= 2 then
-							print("hello")
-						end
 					end
 				end)
 			end)
