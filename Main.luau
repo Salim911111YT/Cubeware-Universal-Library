@@ -145,7 +145,7 @@ CombatTab:AddToggle({
 		connections["SBP"] = Value
 
 		
-				if connections["SBP"] == true then
+		if connections["SBP"] == true then
 			  pcall(function()
 				repeat
 				 	task.wait(0.05)
@@ -154,9 +154,9 @@ CombatTab:AddToggle({
 						if v.Team ~= plr.Team then
 							if v.Character ~= nil and v ~= plr then
 								 if v.Character:FindFirstChild("Head") then
-						 				 if (v.Character.Head.Position - plr.Character.HumanoidRootPart.Position).Magnitude <= 16 and v.Character:FindFirstChildOfClass("Humanoid").Health > 0 then
-										plr.Character.HumanoidRootPart.Position = v.Character.Head.Position + v.Character.Head.CFrame.LookVector * -3
-									end
+						 			 if (v.Character.Head.Position - plr.Character.HumanoidRootPart.Position).Magnitude <= 16 and v.Character:FindFirstChildOfClass("Humanoid").Health > 0 then
+										 plr.Character.PrimaryPart.Position = v.Character.Head.Position + v.Character.Head.CFrame.LookVector * -3
+									 end
 						 		end
 					 		end
 						end
