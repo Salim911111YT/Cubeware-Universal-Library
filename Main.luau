@@ -5,7 +5,8 @@ local connections = {
 	["ESP"] = {nil, {}};
 	["Hitbox"] = {false, 16};
 	["Speed"] = {false, 16};
-	["JumpHeight"] = {false, 7.2}
+	["JumpHeight"] = {false, 7.2};
+	["SBP"] = false;
 }
 
 -- Create A Window (Put The Tab Name Behind The Section Name)
@@ -135,6 +136,31 @@ CombatTab:AddToggle({
 				workspace:WaitForChild("AntiVoid"):Destroy()
 			end
 		end
+	end
+})
+
+CombatTab:AddToggle({
+	Name = "Snap Behind Player";
+	Callback = function(Value)
+		connections["SBP"] = Value
+
+		pcall(function()
+			task.spawn(function()
+				if connections["SBP"] == true then
+					repeat
+				 		task.wait(0.05)
+
+						 for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+							 if v.Character ~= nil then
+								 if v.Character:FindFirstChild("Torso") then
+						 			 plr.Character.PrimaryPart.CFrame = v.Character.Torso.CFrame + v.Character.PrimaryPart.Torso.CFrame.LookVector * -2.5
+						 		end
+					 		end
+				 		end
+					until connections["SBP"] == false
+				end
+			end)
+		end)
 	end
 })
 
