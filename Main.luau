@@ -144,25 +144,22 @@ CombatTab:AddToggle({
 	Callback = function(Value)
 		connections["SBP"] = Value
 
-		pcall(function()
-			task.spawn(function()
+		
 				if connections["SBP"] == true then
 					repeat
 				 		task.wait(0.05)
 
 						 for _, v in pairs(game:GetService("Players"):GetPlayers()) do
 							 if v.Character ~= nil and v ~= plr then
-								 if v.Character:FindFirstChild("Torso") then
-						 			 if (v.Character.Torso.Position - plr.Character.PrimaryPart.Position).Magnitude <= 16 then
-										 plr.Character.PrimaryPart.CFrame = v.Character.Torso.CFrame + v.Character.Torso.CFrame.LookVector * -2.5
+								 if v.Character:FindFirstChild("Head") then
+						 			 if (v.Character.Head.Position - plr.Character.HumanoidRootPart.Position).Magnitude <= 16 and v.Character:FindFirstChildOfClass("Humanoid").Health > 0 then
+										 plr.Character.HumanoidRootPart.Position = v.Character.Head.Position + v.Character.Head.CFrame.LookVector * -3
 									 end
 						 		end
 					 		end
 				 		end
 					until connections["SBP"] == false
 				end
-			end)
-		end)
 	end
 })
 
