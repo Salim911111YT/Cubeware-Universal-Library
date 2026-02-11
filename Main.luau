@@ -153,7 +153,9 @@ CombatTab:AddToggle({
 						 for _, v in pairs(game:GetService("Players"):GetPlayers()) do
 							 if v.Character ~= nil then
 								 if v.Character:FindFirstChild("Torso") then
-						 			 plr.Character.PrimaryPart.CFrame = v.Character.Torso.CFrame + v.Character.PrimaryPart.Torso.CFrame.LookVector * -2.5
+						 			 if (v.Character.Torso.Position - plr.Character.PrimaryPart.Position).Magnitude <= 16 then
+										 plr.Character.PrimaryPart.CFrame = v.Character.Torso.CFrame + v.Character.PrimaryPart.Torso.CFrame.LookVector * -2.5
+									 end
 						 		end
 					 		end
 				 		end
