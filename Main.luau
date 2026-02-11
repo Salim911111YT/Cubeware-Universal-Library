@@ -144,17 +144,17 @@ CombatTab:AddToggle({
 	Callback = function(Value)
 		connections["SBP"] = Value
 
-		pcall(function()
+		--pcall(function()
 			task.spawn(function()
 				if connections["SBP"] == true then
 					repeat
 				 		task.wait(0.05)
 
 						 for _, v in pairs(game:GetService("Players"):GetPlayers()) do
-							 if v.Character ~= nil then
+							 if v.Character ~= nil and v ~= plr then
 								 if v.Character:FindFirstChild("Torso") then
 						 			 if (v.Character.Torso.Position - plr.Character.PrimaryPart.Position).Magnitude <= 16 then
-										 plr.Character.PrimaryPart.CFrame = v.Character.Torso.CFrame + v.Character.PrimaryPart.Torso.CFrame.LookVector * -2.5
+										 plr.Character.PrimaryPart.CFrame = v.Character.Torso.CFrame + v.Character.Torso.CFrame.LookVector * -2.5
 									 end
 						 		end
 					 		end
@@ -162,7 +162,7 @@ CombatTab:AddToggle({
 					until connections["SBP"] == false
 				end
 			end)
-		end)
+		--end)
 	end
 })
 
