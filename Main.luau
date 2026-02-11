@@ -144,7 +144,7 @@ CombatTab:AddToggle({
 	Callback = function(Value)
 		connections["SBP"] = Value
 
-		--pcall(function()
+		pcall(function()
 			task.spawn(function()
 				if connections["SBP"] == true then
 					repeat
@@ -162,7 +162,7 @@ CombatTab:AddToggle({
 					until connections["SBP"] == false
 				end
 			end)
-		--end)
+		end)
 	end
 })
 
