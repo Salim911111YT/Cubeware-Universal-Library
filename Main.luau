@@ -19,7 +19,7 @@ local PerformanceTab = Window:MakeTab("Performance")
 
 CombatTab:AddSlider({
 	Name = "Hitbox Expander",
-	Max = 80;
+	Max = 250;
 	Default = 3;
 	Mix = 1;
 	Callback = function(Value)
@@ -77,7 +77,7 @@ CombatTab:AddSlider({
 
 CombatTab:AddSlider({
 	Name = "Speed Increaser",
-	Max = 60;
+	Max = 140;
 	Default = tonumber(plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed);
 	Callback = function(Value)
 		connections["Speed"][2] = tonumber(Value)
@@ -98,7 +98,7 @@ CombatTab:AddSlider({
 
 CombatTab:AddSlider({
 	Name = "Jump Height Increaser",
-	Max = 20;
+	Max = 45;
 	Default = 7.2;
 	Callback = function(Value)
 		connections["JumpHeight"][2] = tonumber(Value)
