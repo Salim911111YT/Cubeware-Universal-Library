@@ -2,6 +2,7 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/magbu
 local plr = game:GetService("Players").LocalPlayer
 
 local connections = {
+	["AntiVoid"] = false
 	["ESP"] = {nil, {}};
 	["Hitbox"] = {false, 16};
 	["Speed"] = {false, 16};
@@ -121,12 +122,14 @@ CombatTab:AddSlider({
 CombatTab:AddToggle({
 	Name = "Anti Void";
 	Callback = function(Value)
+		connections["AntiVoid"] = Value
+
 		if Value == true then
 			local s = Instance.new("Part", workspace);
 
 			s.Name = "AntiVoid";
 			s.CanCollide = true;
-			s.CFrame = plr.Character.PrimaryPart.CFrame - Vector3.new(0, 5, 0)
+			s.Position = plr.Character.PrimaryPart.Position - Vector3.new(0, 5.5, 0)
 			s.Transparency = 0.6;
 			s.Color = Color3.new(1, 1, 1);
 			s.Size = Vector3.new(2048, 1, 2048)
@@ -136,6 +139,16 @@ CombatTab:AddToggle({
 				if hit:IsDescendantOf(plr.Character) then
 					plr.Character.HumanoidRootPart.AssemblyLinearVelocity = Vector3.new(0, 450, 0)
 				end
+			end)
+
+			task.spawn(function()
+				repeat
+					 task.wait()
+
+					 if (plr.Character.HumanoidRootPart.Position - s.Position).Magnitude >= 2000 then
+						 s.Position = Vector3.new(plr.Character.HumanoidRootPart.Position.X, s.Position.Y, plr.Character.PrimaryPart.Position.Z)
+					 end
+				until connections["AntiVoid"] == false
 			end)
 		elseif Value == false then
 			if workspace:FindFirstChild("AntiVoid") then
