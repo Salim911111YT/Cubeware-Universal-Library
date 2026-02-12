@@ -17,6 +17,7 @@ local Window = Library.new("CubeWare")
 local CombatTab = Window:MakeTab("Combat");
 local TpTab = Window:MakeTab("Teleports");
 local PerformanceTab = Window:MakeTab("Performance")
+local OtherTab = Window:MakeTab("Other")
 
 CombatTab:AddSlider({
 	Name = "Hitbox Expander",
@@ -319,6 +320,15 @@ PerformanceTab:AddSlider({
 		pcall(function()
 			 game:GetService("Lighting").Brightness = Value;
 			 game:GetService("Lighting").ExposureCompensation = Value 
+		end)
+	end
+})
+
+OtherTab:AddButton({
+	Name = "Load Dex",
+	Callback = function()
+		pcall(function()
+			 loadstring(game:HttpGet("https://raw.githubusercontent.com/ryzsb/Roblox_Scripts/refs/heads/main/Dex%20Explorer.lua"))()
 		end)
 	end
 })
