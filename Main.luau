@@ -2,7 +2,7 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/magbu
 local plr = game:GetService("Players").LocalPlayer
 
 local connections = {
-	["AntiVoid"] = false
+	["AntiVoid"] = false,
 	["ESP"] = {nil, {}};
 	["Hitbox"] = {false, 16};
 	["Speed"] = {false, 16};
