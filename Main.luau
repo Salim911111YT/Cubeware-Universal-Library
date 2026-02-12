@@ -138,7 +138,7 @@ CombatTab:AddToggle({
 
 			s.Touched:Connect(function(hit)
 				if hit:IsDescendantOf(plr.Character) then
-					plr.Character.HumanoidRootPart.AssemblyLinearVelocity = Vector3.new(0, 450, 0)
+					plr.Character.HumanoidRootPart.AssemblyLinearVelocity = Vector3.new(0, 100, 0)
 				end
 			end)
 
