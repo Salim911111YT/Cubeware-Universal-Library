@@ -350,6 +350,8 @@ OtherTab:AddToggle({
 		 
 		if Value == true then
 			repeat
+				local humanoid = plr.Character:FindFirstChildOfClass("Humanoid")
+
         		task.wait(0.1)
        			 
 				if humanoid.Health < humanoid.MaxHealth then
