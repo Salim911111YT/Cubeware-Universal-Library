@@ -332,3 +332,12 @@ OtherTab:AddButton({
 		end)
 	end
 })
+
+OtherTab:AddButtons({
+	Name = "Invisibility Gui";
+	Callback = function()
+		pcall(function()
+			loadstring(game:HttpGet('https://pastebin.com/raw/3Rnd9rHf'))()
+		end)
+	end
+})
