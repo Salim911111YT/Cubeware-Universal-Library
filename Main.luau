@@ -9,6 +9,7 @@ local connections = {
 	["JumpHeight"] = {false, 7.2};
 	["SBP"] = false;
 	["InfHealth"] = false;
+	["AntiVoidBounciness"] = 100;
 }
 
 -- Create A Window (Put The Tab Name Behind The Section Name)
@@ -121,6 +122,15 @@ CombatTab:AddSlider({
 	end
 })
 
+CombatTab:AddSlider({
+	Name = "Anti Void Bounciness",
+	Max = 450;
+	Default = 100;
+	Callback = function(Value)
+		connections["AntiVoidBounciness"] = tonumber(Value)
+	end
+})
+
 CombatTab:AddToggle({
 	Name = "Anti Void";
 	Callback = function(Value)
@@ -139,7 +149,7 @@ CombatTab:AddToggle({
 
 			s.Touched:Connect(function(hit)
 				if hit:IsDescendantOf(plr.Character) then
-					plr.Character.HumanoidRootPart.AssemblyLinearVelocity = Vector3.new(0, 100, 0)
+					plr.Character.HumanoidRootPart.AssemblyLinearVelocity = Vector3.new(0, tonumber(connections["AntiVoidBounciness"]) or 100, 0)
 				end
 			end)
 
