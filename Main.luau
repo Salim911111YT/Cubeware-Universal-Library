@@ -8,6 +8,7 @@ local connections = {
 	["Speed"] = {false, 16};
 	["JumpHeight"] = {false, 7.2};
 	["SBP"] = false;
+	["InfHealth"] = false;
 }
 
 -- Create A Window (Put The Tab Name Behind The Section Name)
@@ -339,5 +340,22 @@ OtherTab:AddButtons({
 		pcall(function()
 			loadstring(game:HttpGet('https://pastebin.com/raw/3Rnd9rHf'))()
 		end)
+	end
+})
+
+OtherTab:AddToggle({
+	Name = "Inf Health (Client Sided)";
+	Callback = function(Value)
+		connections["InfHealth"] = Value
+		 
+		if Value == true then
+			repeat
+        		task.wait(0.1)
+       			 
+				if humanoid.Health < humanoid.MaxHealth then
+            		humanoid.Health = humanoid.MaxHealth
+		       	end
+   			until connections["InfHealth"] == false
+		end
 	end
 })
