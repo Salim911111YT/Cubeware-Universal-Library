@@ -215,7 +215,7 @@ CombatTab:AddToggle({
 						local h = Instance.new("Highlight", t_plr.Character);
 
 						h.Name = "CubewareHighlight";
-						h.Adornee = t_plr.Character.PrimaryPart
+						h.Adornee = t_plr.Character
 					end
 
 					s = t_plr.CharacterAdded:Connect(function()
@@ -225,7 +225,7 @@ CombatTab:AddToggle({
 							local h = Instance.new("Highlight", t_plr.Character);
 
 							h.Name = "CubewareHighlight";
-							h.Adornee = t_plr.Character.PrimaryPart
+							h.Adornee = t_plr.Character
 						end
 					end)
 				end
