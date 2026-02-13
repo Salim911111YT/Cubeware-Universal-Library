@@ -224,7 +224,7 @@ CombatTab:AddToggle({
 						if not t_plr.Character:FindFirstChild("CubewareHighlight") then
 							local h = Instance.new("Highlight", t_plr.Character);
 
-							h.Name = "CubewareHighlight";
+							h.Name = "CubeWareHighlight";
 							h.Adornee = t_plr.Character
 						end
 					end)
@@ -251,8 +251,8 @@ CombatTab:AddToggle({
 				local t_plr = game:GetService("Players"):GetPlayers()[tonumber(i)]
 
 				if t_plr ~= plr then
-					if t_plr.Character:FindFirstChild("CubewareHighlight") then
-						t_plr.Character:WaitForChild("CubewareHighlight"):Destroy()
+					if t_plr.Character:FindFirstChild("CubeWareHighlight") then
+						t_plr.Character:WaitForChild("CubeWareHighlight"):Destroy()
 					end
 				end
 			end
