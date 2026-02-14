@@ -12,6 +12,7 @@ local connections = {
 	["SBP"] = false;
 	["InfHealth"] = false;
 	["AntiVoidBounciness"] = 100;
+	["InfiniteJump"] = {false, false}
 }
 
 -- Create A Window (Put The Tab Name Behind The Section Name)
@@ -27,7 +28,7 @@ CombatTab:AddSlider({
 	Name = "Hitbox Expander",
 	Max = 250;
 	Default = 3;
-	Mix = 1;
+	Min = 1;
 	Callback = function(Value)
 		connections["Hitbox"][2] = tonumber(Value)
 
@@ -44,6 +45,11 @@ CombatTab:AddSlider({
 							v.Character.HumanoidRootPart.CanCollide = false;
 							v.Character.HumanoidRootPart.Transparency = 0.6;
 							v.Character.HumanoidRootPart.Color = Color3.new(1, 0, 0)
+
+							v.Character.Torso.Size = Vector3.new(tonumber(connections["Hitbox"][2]), tonumber(connections["Hitbox"][2]), tonumber(connections["Hitbox"][2]))
+							v.Character.Torso.CanCollide = false;
+							v.Character.Torso.Transparency = 0.8;
+							v.Character.Torso.Color = Color3.new(1, 0, 0)
 
 							for _, y in pairs(v.Character:GetChildren()) do
 								if y then
@@ -173,25 +179,58 @@ CombatTab:AddToggle({
 })
 
 CombatTab:AddToggle({
+	Name = "Infinite Jump";
+	Callback = function(Value)
+		connections["InfiniteJump"][1] = not connections["InfiniteJump"][1]
+
+		if connections["InfiniteJump"][1] == true then
+			if connections["InfiniteJump"][2] == true then 
+				connections["InfiniteJump"][2] = false 
+				return 
+			end
+
+			game:GetService("UserInputService").InputBegan:Connect(function(key)
+				if connections["InfiniteJump"][1] == false then break end
+
+				if key.KeyCode == Enum.KeyCode.Space then
+					connections["InfiniteJump"][2] = true
+					plr.Character.PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, tonumber((50 / 7.2) * tonumber(connections["JumpHeight"][2])), 0)
+				end
+			end)
+		end
+	end
+})
+
+CombatTab:AddToggle({
 	Name = "Snap Behind Player";
 	Callback = function(Value)
 		connections["SBP"] = Value
 
-		
 		if connections["SBP"] == true then
 			  pcall(function()
 				repeat
 				 	task.wait(0.05)
 
 					for _, v in pairs(game:GetService("Players"):GetPlayers()) do
-						if v.Team ~= plr.Team then
-							if v.Character ~= nil and v ~= plr then
-								 if v.Character:FindFirstChild("Head") then
-						 			 if (v.Character.Head.Position - plr.Character.HumanoidRootPart.Position).Magnitude <= 16 and v.Character:FindFirstChildOfClass("Humanoid").Health > 0 then
-										 plr.Character.PrimaryPart.Position = v.Character.Head.Position + v.Character.Head.CFrame.LookVector * -3
-									 end
-						 		end
-					 		end
+						if #game:GetService("Teams"):GetChildren() >= 2 then
+							if v.Team ~= plr.Team then
+								if v.Character ~= nil and v ~= plr then
+								 	if v.Character:FindFirstChild("Head") then
+						 				 if (v.Character.Head.Position - plr.Character.HumanoidRootPart.Position).Magnitude <= 16 and v.Character:FindFirstChildOfClass("Humanoid").Health > 0 then
+											 plr.Character.PrimaryPart.Position = v.Character.Head.Position + v.Character.Head.CFrame.LookVector * -3
+										 end
+						 			end
+					 			end
+							end
+						else
+								if v.Character ~= nil and v ~= plr then
+									 if v.Character:FindFirstChild("Head") then
+						 			 	if (v.Character.Head.Position - plr.Character.HumanoidRootPart.Position).Magnitude <= 16 and v.Character:FindFirstChildOfClass("Humanoid").Health > 0 then
+										 	plr.Character.PrimaryPart.Position = v.Character.Head.Position + v.Character.Head.CFrame.LookVector * -3
+									 	end
+						 			end
+					 			end
+							end
 						end
 				 	end
 			   until connections["SBP"] == false
@@ -211,17 +250,17 @@ CombatTab:AddToggle({
 				local t_plr = game:GetService("Players"):GetPlayers()[tonumber(i)]
 
 				if t_plr ~= plr then
-					if not t_plr.Character:FindFirstChild("CubewareHighlight") then
+					if not t_plr.Character:FindFirstChild("CubeWareHighlight") then
 						local h = Instance.new("Highlight", t_plr.Character);
 
-						h.Name = "CubewareHighlight";
+						h.Name = "CubeWareHighlight";
 						h.Adornee = t_plr.Character
 					end
 
 					s = t_plr.CharacterAdded:Connect(function()
 						repeat task.wait() until t_plr.Character ~= nil
 
-						if not t_plr.Character:FindFirstChild("CubewareHighlight") then
+						if not t_plr.Character:FindFirstChild("CubeWareHighlight") then
 							local h = Instance.new("Highlight", t_plr.Character);
 
 							h.Name = "CubeWareHighlight";
@@ -382,7 +421,9 @@ OtherTab:AddTextBox({
 ]]
 
 task.spawn(function()
-    pcall(function()
+	if false == false then print("Scrapped Kick Function") return end -- Scrapped Mechanic   
+	
+	pcall(function()
 		for _, v in pairs(game:GetService("Players"):GetPlayers()) do
 			if table.find(admins, v.UserId) then
 				v.Chatted:Connect(function(msg)
