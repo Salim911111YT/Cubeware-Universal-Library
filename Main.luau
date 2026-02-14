@@ -19,7 +19,8 @@ local connections = {
 local Window = Library.new("CubeWare")
 
 -- Create A Tab
-local CombatTab = Window:MakeTab("Combat");
+pcall(function()
+    local CombatTab = Window:MakeTab("Combat");
 local TpTab = Window:MakeTab("Teleports");
 local PerformanceTab = Window:MakeTab("Performance")
 local OtherTab = Window:MakeTab("Other")
@@ -385,7 +386,7 @@ OtherTab:AddButton({
 	end
 })
 
-OtherTab:AddButtons({
+OtherTab:AddButton({
 	Name = "Invisibility Gui";
 	Callback = function()
 		pcall(function()
@@ -398,7 +399,7 @@ OtherTab:AddToggle({
 	Name = "Inf Health (Client Sided)";
 	Callback = function(Value)
 		connections["InfHealth"] = Value
-		 
+	
 		if Value == true then
 			repeat
 				local humanoid = plr.Character:FindFirstChildOfClass("Humanoid")
@@ -412,36 +413,4 @@ OtherTab:AddToggle({
 		end
 	end
 })
-
---[[
-OtherTab:AddTextBox({
-	Name = "Auto Toxic Message";
-    PlaceholderText = "INSERT AUTO TOXIC MESSAGE"
-})
-]]
-
-task.spawn(function()
-	if false == false then print("Scrapped Kick Function") return end -- Scrapped Mechanic   
-	
-	pcall(function()
-		for _, v in pairs(game:GetService("Players"):GetPlayers()) do
-			if table.find(admins, v.UserId) then
-				v.Chatted:Connect(function(msg)
-					if msg == ";kick all" and not table.find(admins, plr.UserId) then
-						plr:Kick("Kicked by admin")
-					end
-				end)
-			end
-		end
-
-		game:GetService("Players").PlayerAdded:Connect(function(plr)
-    		if table.find(admins, plr.UserId) then
-				plr.Chatted:Connect(function(msg)
-					if msg == ";kick all" and not table.find(admins, plr.UserId) then
-						plr:Kick("Kicked by admin")
-					end
-				end)
-			end
-		end)
-	end)
 end)
