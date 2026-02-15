@@ -201,7 +201,7 @@ CombatTab:AddToggle({
 			end
 
 			game:GetService("UserInputService").InputBegan:Connect(function(key)
-				if connections["InfiniteJump"][1] == false then break end
+				if connections["InfiniteJump"][1] == false then return end
 
 				if key.KeyCode == Enum.KeyCode.Space then
 					connections["InfiniteJump"][2] = true
@@ -234,16 +234,13 @@ CombatTab:AddToggle({
 					 			end
 							end
 						else
-								if v.Character ~= nil and v ~= plr then
-									 if v.Character:FindFirstChild("Head") then
-						 			 	if (v.Character.Head.Position - plr.Character.HumanoidRootPart.Position).Magnitude <= 16 and v.Character:FindFirstChildOfClass("Humanoid").Health > 0 then
-										 	plr.Character.PrimaryPart.Position = v.Character.Head.Position + v.Character.Head.CFrame.LookVector * -3
-									 	end
-						 			end
-					 			end
-							end
+							if v.Character:FindFirstChild("Head") then
+						 		if (v.Character.Head.Position - plr.Character.HumanoidRootPart.Position).Magnitude <= 16 and v.Character:FindFirstChildOfClass("Humanoid").Health > 0 then
+									 plr.Character.PrimaryPart.Position = v.Character.Head.Position + v.Character.Head.CFrame.LookVector * -3
+								end
+						 	end
 						end
-				 	end
+					end		
 			   until connections["SBP"] == false
 			end)
 		end
