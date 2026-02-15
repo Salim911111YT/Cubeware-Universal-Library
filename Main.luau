@@ -20,10 +20,20 @@ local Window = Library.new("CubeWare")
 
 -- Create A Tab
 pcall(function()
+	task.spawn(function()
+		game:GetService("UserInputService").InputBegan:Connect(function(key)
+			if key.KeyCode == Enum.KeyCode.RightShift then
+				pcall(function()
+					Window:Toggle()
+				end)
+			end
+		end)
+	end)
+
     local CombatTab = Window:MakeTab("Combat");
-local TpTab = Window:MakeTab("Teleports");
-local PerformanceTab = Window:MakeTab("Performance")
-local OtherTab = Window:MakeTab("Other")
+	local TpTab = Window:MakeTab("Teleports");
+	local PerformanceTab = Window:MakeTab("Performance")
+	local OtherTab = Window:MakeTab("Other")
 
 CombatTab:AddSlider({
 	Name = "Hitbox Expander",
