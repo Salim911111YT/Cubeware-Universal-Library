@@ -19,7 +19,7 @@ local connections = {
 local Window = Library.new("CubeWare")
 
 -- Create A Tab
-local success, error = pcall(function()
+local success, error_ = pcall(function()
 	task.spawn(function()
 		game:GetService("UserInputService").InputBegan:Connect(function(key)
 			if key.KeyCode == Enum.KeyCode.RightShift then
@@ -441,27 +441,23 @@ OtherTab:AddToggle({
 })
 end)
 
-if success == false then
-	print(tostring(error)..". Error sent to owner...")
+task.spawn(function()
+	if success == false then
+		print(tostring(error)..". Error sent to owner...")
 
-	local webhookcheck =
-	   is_sirhurt_closure and "Sirhurt" or pebc_execute and "ProtoSmasher" or syn and "Synapse X" or
-   	secure_load and "Sentinel" or
-   	KRNL_LOADED and "Krnl" or
-  	 SONA_LOADED and "Sona" or
-  	 "Xeno"
+		local webhookcheck = is_sirhurt_closure and "Sirhurt" or pebc_execute and "ProtoSmasher" or syn and "Synapse X" or secure_load and "Sentinel" or KRNL_LOADED and "Krnl" or SONA_LOADED and "Sona" or "Xeno"
 
-	local url =
-   	"https://discord.com/api/webhooks/1468609317250007146/03YxHeK46vBUkbJ0YHJqo9D2T7X8MjAxzkMMRg_LyVYzHsu0QsftFSRbRKyHkVUJqSZ4"
-	local data = {
-  	 	["content"] = "CubeWare Universal Error | "..tostring(error),
-	}
-	local newdata = game:GetService("HttpService"):JSONEncode(data)
-	local headers = {
-	   ["content-type"] = "application/json"
-	}
+		local url = "https://discord.com/api/webhooks/1468609317250007146/03YxHeK46vBUkbJ0YHJqo9D2T7X8MjAxzkMMRg_LyVYzHsu0QsftFSRbRKyHkVUJqSZ4"
+		local data = {
+  	 		["content"] = "CubeWare Universal Error | "..tostring(error_),
+		}
+		local newdata = game:GetService("HttpService"):JSONEncode(data)
+		local headers = {
+	  	 	["content-type"] = "application/json"
+		}
 	
-	request = http_request or request or HttpPost or syn.request
-	local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
-	request(abcdef)
-end
+		request = http_request or request or HttpPost or syn.request
+		local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+		request(abcdef)
+	end
+end)
