@@ -420,4 +420,23 @@ OtherTab:AddToggle({
 		end
 	end
 })
+
+OtherTab:AddToggle({
+	Name = "AutoClicker";
+	Callback = function(Value)
+		if Value == true then
+			pcall(function()
+				repeat
+					 task.wait()
+
+					 if plr.Character then
+				 		 if plr.Character:FindFirstChildOfClass("Tool") then
+							 plr.Character:FindFirstChildOfClass("Tool"):Activate()
+						 end
+					 end
+				until Value == false
+			end)
+		end
+	end
+})
 end)
