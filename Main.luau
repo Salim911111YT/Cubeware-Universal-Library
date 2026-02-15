@@ -12,7 +12,8 @@ local connections = {
 	["SBP"] = false;
 	["InfHealth"] = false;
 	["AntiVoidBounciness"] = 100;
-	["InfiniteJump"] = {false, false}
+	["InfiniteJump"] = {false, false};
+	["AutoClicker"] = false
 }
 
 -- Create A Window (Put The Tab Name Behind The Section Name)
@@ -424,6 +425,8 @@ OtherTab:AddToggle({
 OtherTab:AddToggle({
 	Name = "AutoClicker";
 	Callback = function(Value)
+		connections["AutoClicker"] = Value
+
 		if Value == true then
 			pcall(function()
 				repeat
@@ -434,7 +437,7 @@ OtherTab:AddToggle({
 							 plr.Character:FindFirstChildOfClass("Tool"):Activate()
 						 end
 					 end
-				until Value == false
+				until connections["AutoClicker"] == false
 			end)
 		end
 	end
