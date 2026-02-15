@@ -102,7 +102,7 @@ CombatTab:AddSlider({
 CombatTab:AddSlider({
 	Name = "Speed Increaser",
 	Max = 140;
-	Default = tonumber(plr.Character:FindFirstChildOfClass("Humanoid").WalkSpeed);
+	Default = 16;
 	Callback = function(Value)
 		connections["Speed"][2] = tonumber(Value)
 
