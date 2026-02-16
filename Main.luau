@@ -41,7 +41,7 @@ local success, error_ = pcall(function()
 	local TpTab = Window:MakeTab("Teleports");
 	local PerformanceTab = Window:MakeTab("Performance")
 	local OtherTab = Window:MakeTab("Other")
-	local OtherTab = Window:MakeTab("Conditions")
+	local ConditionsTab = Window:MakeTab("Conditions")
 
 CombatTab:AddLabel("Conditions Update! The script can now check for conditions!")
 
