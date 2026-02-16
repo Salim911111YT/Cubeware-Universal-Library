@@ -43,6 +43,8 @@ local success, error_ = pcall(function()
 	local OtherTab = Window:MakeTab("Other")
 	local OtherTab = Window:MakeTab("Conditions")
 
+CombatTab:AddLabel("Conditions Update! You can now check for conditions!")
+
 CombatTab:AddSlider({
 	Name = "Hitbox Expander",
 	Max = 250;
