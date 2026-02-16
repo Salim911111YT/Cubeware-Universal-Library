@@ -169,7 +169,7 @@ CombatTab:AddToggle({
 
 			s.Touched:Connect(function(hit)
 				if hit:IsDescendantOf(plr.Character) then
-					plr.Character.HumanoidRootPart.AssemblyLinearVelocity = Vector3.new(0, tonumber(connections["AntiVoidBounciness"]) or 100, 0)
+					plr.Character.HumanoidRootPart.AssemblyLinearVelocity = Vector3.new(plr.Character.HumanoidRootPart.AssemblyLinearVelocity.X, tonumber(connections["AntiVoidBounciness"]) or 100, plr.Character.HumanoidRootPart.AssemblyLinearVelocity.Z)
 				end
 			end)
 
@@ -206,7 +206,7 @@ CombatTab:AddToggle({
 
 				if key.KeyCode == Enum.KeyCode.Space then
 					connections["InfiniteJump"][2] = true
-					plr.Character.PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, tonumber((50 / 7.2) * tonumber(connections["JumpHeight"][2])), 0)
+					plr.Character.PrimaryPart.AssemblyLinearVelocity = Vector3.new(plr.Character.PrimaryPart.AssemblyLinearVelocity.X, tonumber((50 / 7.2) * tonumber(connections["JumpHeight"][2])), plr.Character.PrimaryPart.AssemblyLinearVelocity.Z)
 				end
 			end)
 		end
