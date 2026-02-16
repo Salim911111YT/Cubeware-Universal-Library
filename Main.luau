@@ -475,7 +475,6 @@ ConditionsTab:AddToggle({
 		conditions["Speed"]["IgnoreOnToolEquipped"] = Value
 	end
 })
-end);
 
 ConditionsTab:AddToggle({
 	Name = "Combat: Hitbox Expander: Check behind walls.",
@@ -483,6 +482,7 @@ ConditionsTab:AddToggle({
 		conditions["Hitbox"]["WallCheck"] = Value
 	end
 })
+end)
 
 task.spawn(function()
 	if success == false then
