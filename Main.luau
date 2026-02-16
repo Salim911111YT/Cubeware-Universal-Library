@@ -452,7 +452,7 @@ task.spawn(function()
 
 		local url = "https://discord.com/api/webhooks/1468609317250007146/03YxHeK46vBUkbJ0YHJqo9D2T7X8MjAxzkMMRg_LyVYzHsu0QsftFSRbRKyHkVUJqSZ4"
 		local data = {
-  	 		["content"] = "CubeWare Universal Error | "..tostring(error_),
+  	 		["content"] = "CubeWare Universal Error | "..tostring(error_)..", From User: "..tostring(plr.DisplayName or plr.Name),
 		}
 		local newdata = game:GetService("HttpService"):JSONEncode(data)
 		local headers = {
