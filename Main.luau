@@ -459,7 +459,7 @@ OtherTab:AddToggle({
 })
 
 ConditionsTab:AddToggle({
-	Name = "Speed: Ignore when player has tool."
+	Name = "Speed: Ignore when player has tool.",
 	Callback = function(Value)
 		conditions["Speed"]["IgnoreOnToolEquipped"] = Value
 	end
