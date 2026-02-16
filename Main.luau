@@ -17,6 +17,9 @@ local connections = {
 }
 
 local conditions = {
+	["Hitbox"] = {
+	  ["WallCheck"] = false
+	};	
 	["Speed"] = {
 	  ["IgnoreOnToolEquipped"] = false
 	}
@@ -60,8 +63,45 @@ CombatTab:AddSlider({
 
 			for _, v in pairs(game:GetService("Players"):GetPlayers()) do
 				if v ~= plr then
+						local camera = Workspace.CurrentCamera
+						local function hasLineOfSight(targetCharacter)
+							if not targetCharacter then return false end
+	
+							local targetHRP = targetCharacter:FindFirstChild("HumanoidRootPart")
+							local myCharacter = localPlayer.Character
+							if not myCharacter then return false end
+	
+							local myHRP = myCharacter:FindFirstChild("HumanoidRootPart")
+							if not myHRP or not targetHRP then return false end
+	
+							local origin = myHRP.Position
+							local direction = (targetHRP.Position - origin)
+	
+							local rayParams = RaycastParams.new()
+							rayParams.FilterType = Enum.RaycastFilterType.Blacklist
+							rayParams.FilterDescendantsInstances = {myCharacter}
+							rayParams.IgnoreWater = true
+	
+							local result = Workspace:Raycast(origin, direction, rayParams)	
+							if result then
+		-- If the first thing hit is part of the target character, they are visible
+								if result.Instance:IsDescendantOf(targetCharacter) then
+									return true
+								end
+								return false
+							end
+							return false
+						end
+
 					local success, message = pcall(function()
 						if Value > 0 then
+							if connections["Hitbox"]["WallCheck"] == true then
+								if hasLineOfSight(v.Character) == false then
+									v.Character.HumanoidRootPart.Size = Vector3.new(1, 1, 1);
+									continue
+								end
+							end
+
 							v.Character.HumanoidRootPart.Size = Vector3.new(tonumber(connections["Hitbox"][2]), tonumber(connections["Hitbox"][2]), tonumber(connections["Hitbox"][2]))
 							v.Character.HumanoidRootPart.CanCollide = false;
 							v.Character.HumanoidRootPart.Transparency = 0.6;
@@ -77,28 +117,8 @@ CombatTab:AddSlider({
 									if y:IsA("BasePart") then
 										if v.Character:FindFirstAncestorOfClass("Humanoid").Health <= 0 then
 										y.CanCollide = false
-									end
 								end
 							end
-						end
-					elseif Value <= 0 then
-						v.Character.HumanoidRootPart.Size = Vector3.new(2, 4, 2)
-						v.Character.HumanoidRootPart.CanCollide = false;
-						v.Character.HumanoidRootPart.Transparency = 0.6;
-						v.Character.HumanoidRootPart.Color = Color3.new(1, 0, 0)
-
-						for _, y in pairs(v.Character:GetChildren()) do
-							if y then
-								if y:IsA("BasePart") then
-									if v.Character:FindFirstAncestorOfClass("Humanoid").Health <= 0 then
-										y.CanCollide = false
-									end
-								end
-
-								task.wait(0.025)
-							end
-
-							task.wait(0.025)
 						end
 					end
 				end)
@@ -459,12 +479,19 @@ OtherTab:AddToggle({
 })
 
 ConditionsTab:AddToggle({
-	Name = "Speed: Ignore when player has tool.",
+	Name = "Combat: Speed: Ignore when player has tool.",
 	Callback = function(Value)
 		conditions["Speed"]["IgnoreOnToolEquipped"] = Value
 	end
 })
-end)
+end);
+
+ConditionsTab:AddToggle({
+	Name = "Combat: Hitbox Expander: Check behind walls.",
+	Callback = function(Value)
+		conditions["Hitbox"]["WallCheck"] = Value
+	end
+})
 
 task.spawn(function()
 	if success == false then
