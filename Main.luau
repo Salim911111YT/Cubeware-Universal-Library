@@ -98,7 +98,7 @@ CombatTab:AddSlider({
 							if connections["Hitbox"]["WallCheck"] == true then
 								if hasLineOfSight(v.Character) == false then
 									v.Character.HumanoidRootPart.Size = Vector3.new(1, 1, 1);
-									continue
+									return
 								end
 							end
 
@@ -111,19 +111,10 @@ CombatTab:AddSlider({
 							v.Character.Torso.CanCollide = false;
 							v.Character.Torso.Transparency = 0.8;
 							v.Character.Torso.Color = Color3.new(1, 0, 0)
-
-							for _, y in pairs(v.Character:GetChildren()) do
-								if y then
-									if y:IsA("BasePart") then
-										if v.Character:FindFirstAncestorOfClass("Humanoid").Health <= 0 then
-										y.CanCollide = false
-								end
-							end
 						end
-					end
-				end)
+					end)
+				end
 			end
-		end
 		end
 	end
 })
