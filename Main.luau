@@ -16,6 +16,12 @@ local connections = {
 	["AutoClicker"] = false
 }
 
+local conditions = {
+	["Speed"] = {
+	  ["IgnoreOnToolEquipped"] = false
+	}
+}
+
 -- Create A Window (Put The Tab Name Behind The Section Name)
 local Window = Library.new("CubeWare")
 
@@ -35,6 +41,7 @@ local success, error_ = pcall(function()
 	local TpTab = Window:MakeTab("Teleports");
 	local PerformanceTab = Window:MakeTab("Performance")
 	local OtherTab = Window:MakeTab("Other")
+	local OtherTab = Window:MakeTab("Conditions")
 
 CombatTab:AddSlider({
 	Name = "Hitbox Expander",
@@ -109,6 +116,12 @@ CombatTab:AddSlider({
 		if connections["Speed"][1] == true then return end
 
 		while task.wait(0.05) do
+			if conditions["Speed"]["IgnoreOnToolEquipped"] == true then
+				if plr.Character:FindFirstChildOfClass("Tool") then
+					continue
+				end
+			end
+
 			connections["Speed"][1] = true
 
 			pcall(function()
@@ -440,6 +453,13 @@ OtherTab:AddToggle({
 				until connections["AutoClicker"] == false
 			end)
 		end
+	end
+})
+
+ConditionsTab:AddToggle({
+	Name = "Speed: Ignore when player has tool."
+	Callback = function(Value)
+		conditions["Speed"]["IgnoreOnToolEquipped"] = Value
 	end
 })
 end)
