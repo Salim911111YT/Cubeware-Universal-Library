@@ -213,7 +213,7 @@ CombatTab:AddToggle({
 		elseif Value == false then
 			for _, v in pairs(workspace:GetChildren()) do
 				if v:IsA("BasePart") then
-					if v.Name == "AntiVoid or v.Name:find("AntiVoid") then 
+					if v.Name == "AntiVoid" or v.Name:find("AntiVoid") then 
 						v:Destroy() 
 					end
 				end
