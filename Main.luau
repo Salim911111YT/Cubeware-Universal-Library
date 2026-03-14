@@ -211,8 +211,12 @@ CombatTab:AddToggle({
 				until connections["AntiVoid"] == false
 			end)
 		elseif Value == false then
-			if workspace:FindFirstChild("AntiVoid") then
-				workspace:WaitForChild("AntiVoid"):Destroy()
+			for _, v in pairs(workspace:GetChildren()) do
+				if v:IsA("BasePart") then
+					if v.Name == "AntiVoid or v.Name:find("AntiVoid") then 
+						v:Destroy() 
+					end
+				end
 			end
 		end
 	end
