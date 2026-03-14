@@ -1,4 +1,6 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/magbux/BorealisUiLib/refs/heads/main/Library.Lua"))()
+local Alurt = loadstring(game:HttpGet("https://raw.githubusercontent.com/azir-py/project/refs/heads/main/Zwolf/AlurtUI.lua"))()
+
 local plr = game:GetService("Players").LocalPlayer
 
 local admins = {7961390436}
@@ -482,6 +484,19 @@ ConditionsTab:AddToggle({
 		conditions["Hitbox"]["WallCheck"] = Value
 	end
 })
+end)
+
+task.spawn(function()
+	pcall(function()
+		local notif1 = Alurt.CreateNode({
+   			 Title = "Cubeware",
+   		 	Content = "Cubeware has been loaded!",
+   		 	Audio = "rbxassetid://118797914122839",
+    		Length = 4,
+   			Image = "rbxassetid://4453818013", 
+    		BarColor = Color3.fromRGB(75, 75, 75)
+		})
+	end)
 end)
 
 task.spawn(function()
