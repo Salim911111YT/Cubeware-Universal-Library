@@ -15,7 +15,8 @@ local connections = {
 	["InfHealth"] = false;
 	["AntiVoidBounciness"] = 100;
 	["InfiniteJump"] = {false, false};
-	["AutoClicker"] = false
+	["AutoClicker"] = false;
+	["NewESP"] = nil
 }
 
 local conditions = {
@@ -65,56 +66,59 @@ CombatTab:AddSlider({
 
 			for _, v in pairs(game:GetService("Players"):GetPlayers()) do
 				if v ~= plr then
-						local camera = Workspace.CurrentCamera
-						local function hasLineOfSight(targetCharacter)
-							if not targetCharacter then return false end
+					local camera = Workspace.CurrentCamera
+					
+					function hasLineOfSight(targetCharacter)	
+						if not targetCharacter then return false end
 	
-							local targetHRP = targetCharacter:FindFirstChild("HumanoidRootPart")
-							local myCharacter = localPlayer.Character
-							if not myCharacter then return false end
+						local targetHRP = targetCharacter:FindFirstChild("HumanoidRootPart")
+						local myCharacter = localPlayer.Character
+						
+						if not myCharacter then return false end
 	
-							local myHRP = myCharacter:FindFirstChild("HumanoidRootPart")
-							if not myHRP or not targetHRP then return false end
+						local myHRP = myCharacter:FindFirstChild("HumanoidRootPart")
+						if not myHRP or not targetHRP then return false end
 	
-							local origin = myHRP.Position
-							local direction = (targetHRP.Position - origin)
+						local origin = myHRP.Position
+						local direction = (targetHRP.Position - origin)
 	
-							local rayParams = RaycastParams.new()
-							rayParams.FilterType = Enum.RaycastFilterType.Blacklist
-							rayParams.FilterDescendantsInstances = {myCharacter}
-							rayParams.IgnoreWater = true
+						local rayParams = RaycastParams.new()
+						rayParams.FilterType = Enum.RaycastFilterType.Blacklist
+						rayParams.FilterDescendantsInstances = {myCharacter}
+						rayParams.IgnoreWater = true
 	
-							local result = Workspace:Raycast(origin, direction, rayParams)	
-							if result then
-		-- If the first thing hit is part of the target character, they are visible
-								if result.Instance:IsDescendantOf(targetCharacter) then
-									return true
-								end
-								return false
+						local result = Workspace:Raycast(origin, direction, rayParams)	
+						
+						if result then
+							if result.Instance:IsDescendantOf(targetCharacter) then
+								return true
 							end
+							
 							return false
 						end
+						
+						return false
+					end
 
-					local success, message = pcall(function()
-						if Value > 0 then
-							if connections["Hitbox"]["WallCheck"] == true then
-								if hasLineOfSight(v.Character) == false then
-									v.Character.HumanoidRootPart.Size = Vector3.new(1, 1, 1);
-									return
-								end
+					
+					if Value > 0 then
+						if connections["Hitbox"]["WallCheck"] == true then
+							if hasLineOfSight(v.Character) == false then
+								v.Character.HumanoidRootPart.Size = Vector3.new(1, 1, 1);
+								continue
 							end
-
-							v.Character.HumanoidRootPart.Size = Vector3.new(tonumber(connections["Hitbox"][2]), tonumber(connections["Hitbox"][2]), tonumber(connections["Hitbox"][2]))
-							v.Character.HumanoidRootPart.CanCollide = false;
-							v.Character.HumanoidRootPart.Transparency = 0.6;
-							v.Character.HumanoidRootPart.Color = Color3.new(1, 0, 0)
-
-							v.Character.Torso.Size = Vector3.new(tonumber(connections["Hitbox"][2]), tonumber(connections["Hitbox"][2]), tonumber(connections["Hitbox"][2]))
-							v.Character.Torso.CanCollide = false;
-							v.Character.Torso.Transparency = 0.8;
-							v.Character.Torso.Color = Color3.new(1, 0, 0)
 						end
-					end)
+
+						v.Character.HumanoidRootPart.Size = Vector3.new(tonumber(connections["Hitbox"][2]), tonumber(connections["Hitbox"][2]), tonumber(connections["Hitbox"][2]))
+						v.Character.HumanoidRootPart.CanCollide = false;
+						v.Character.HumanoidRootPart.Transparency = 0.6;
+						v.Character.HumanoidRootPart.Color = Color3.new(1, 0, 0)
+
+						v.Character.Torso.Size = Vector3.new(tonumber(connections["Hitbox"][2]), tonumber(connections["Hitbox"][2]), tonumber(connections["Hitbox"][2]))
+						v.Character.Torso.CanCollide = false;
+						v.Character.Torso.Transparency = 0.8;
+						v.Character.Torso.Color = Color3.new(1, 0, 0)
+					end
 				end
 			end
 		end
@@ -351,6 +355,62 @@ CombatTab:AddToggle({
 	end
 })
 
+CombatTab:AddToggle({
+	Name = "New ESP",
+	Callback = function(Value)
+		if Value == true then
+			for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+				if v then
+					if v.Character then
+						if v.Character.PrimaryPart then
+							local p = Instance.new("Part", v.Character);
+
+							p.Size = Vector3.new(5, 5, 5);
+							p.Color = Color3.new(1, 0, 0);
+							p.CanCollide = false;
+							p.Name = "NewESPCubewareBox"
+
+							local w = Instance.new("Weld", p)
+
+							w["Part0"] = v.Character.PrimaryPart
+							w["Part1"] = p
+						end
+					end
+				end
+			end
+
+			connections["NewESP"] = game:GetService("Players").PlayerAdded:Connect(function(plr)
+				if plr then
+					if plr.Character then
+						if plr.Character.PrimaryPart then
+							local p = Instance.new("Part", plr.Character);
+
+							p.Size = Vector3.new(5, 5, 5);
+							p.Color = Color3.new(1, 0, 0);
+							p.CanCollide = false;
+							p.Name = "NewESPCubewareBox"
+
+							local w = Instance.new("Weld", p)
+
+							w["Part0"] = plr.Character.PrimaryPart
+							w["Part1"] = p
+						end
+					end
+				end
+			end)
+ 		else
+			for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+				if v.Character:FindFirstChild("NewESPCubewareBox") then
+					v.Character:WaitForChild("NewESPCubewareBox"):Destroy()
+				end
+			end
+
+			connections["NewESP"]:Disconnect()
+			connections["NewESP"] = nil
+		end
+	end
+})
+
 TpTab:AddButton({
 	Name = "Invincible (Sends u to blackbox)";
 	Callback = function()
@@ -397,10 +457,22 @@ PerformanceTab:AddButton({
 	Callback = function()
 		pcall(function()
 			for _, v in pairs(game:GetDescendants()) do
-				if v:IsA("SpecialMesh") then
+				if v:IsA("SpecialMesh") or v:IsA("Decal") or v:IsA("Texture") then
 					v:Destroy()
 				end
+
+				if v:IsA("BasePart") then
+					v.Color = Color3.fromRGB(255, 255, 255)
+				end
 			end
+
+			workspace.DescendantAdded:Connect(function(item)
+				for _, v in pairs(item:GetDescendants()) do
+					if v:IsA("SpecialMesh") or v:IsA("Decal") or v:IsA("Texture") then
+						v:Destroy()
+					end
+				end
+			end)
 		end)
 	end
 });
