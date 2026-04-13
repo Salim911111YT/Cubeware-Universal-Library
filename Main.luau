@@ -569,7 +569,7 @@ task.spawn(function()
    		 	Content = "Cubeware has been loaded!",
    		 	Audio = "rbxassetid://118797914122839",
     		Length = 4,
-   			Image = "rbxassetid://4453818013", 
+   			Image = "rbxassetid://0", 
     		BarColor = Color3.fromRGB(75, 75, 75)
 		})
 	end)
