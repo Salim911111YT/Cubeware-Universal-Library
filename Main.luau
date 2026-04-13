@@ -29,7 +29,7 @@ local conditions = {
 }
 
 -- Create A Window (Put The Tab Name Behind The Section Name)
-local Window = Library.new("CubeWare (HAPPY BIRTHDAY OWNER!!!)")
+local Window = Library.new("CubeWare (HAPPY BIRTHDAY OWNER!!!) (V1.5.0)")
 
 -- Create A Tab
 local success, error_ = pcall(function()
