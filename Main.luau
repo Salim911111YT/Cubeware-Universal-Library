@@ -237,7 +237,8 @@ CombatTab:AddToggle({
 				return 
 			end
 
-			game:GetService("UserInputService").InputBegan:Connect(function(key)
+			game:GetService("UserInputService").InputBegan:Connect(function(key, gsp)
+				if gsp then return end
 				if connections["InfiniteJump"][1] == false then return end
 
 				if key.KeyCode == Enum.KeyCode.Space then
